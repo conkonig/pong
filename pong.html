@@ -1,0 +1,193 @@
+<html>
+<style>
+    .arena {
+        height: 500px;
+        width: 500px;
+        background: yellow;
+    }
+    #ball {
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+        background: red;
+        position: relative;
+    }
+    #player {
+        height: 20px;
+        width: 200px;
+        /* border-radius: 10px; */
+        background: green;
+        position: relative;
+    }
+</style>
+<body>
+    <div class="arena">
+        <div id="paddle"></div>
+        <div id="ball"></div>
+        <div id="player"></div>
+    </div>
+</body>
+<script>
+    var ball = document.getElementById('ball');
+    var player = document.getElementById('player');
+    var playerX = 50;
+    var playerY = 460;
+
+    var arenaWidth = 500 - 20;
+    var arenaHeight = 500 - 30;
+    var ballX = 50, ballY = 50,
+    ballSpeed = 25;
+
+    setElementX(player, playerX);
+    player.style.top = playerY;
+    // setElementY(player, playerY);
+
+    setElementX(ball, ballX);
+    setElementY(ball, ballY);
+
+    ballDirectionX = 1;
+    ballDirectionY = 1;
+
+    var myTimer = setInterval(timerTick, ballSpeed);
+
+    function timerTick() {
+
+        switch (isBallHitWall()) {
+            case 0:
+                changeBallDirectionY(1);
+                break;
+            case 1:
+                changeBallDirectionY(-1);
+                break;
+            case 2:
+                changeBallDirectionX(1);
+                break;
+            case 3:
+                changeBallDirectionX(-1);
+                break;
+            default:
+        }
+
+        isBallHitPaddle();
+        switch (isBallHitPaddle()) {
+            case 0:
+                // changeBallDirectionY(1);
+                break;
+            case 1:
+                changeBallDirectionY(-1);
+                break;
+            default:
+        }
+
+        ballX = ballX + ballDirectionX;
+        setElementX(ball, ballX);
+
+        ballY = ballY + ballDirectionY;
+        setElementY(ball, ballY);
+    }
+
+    function moveElement(el, directionX) {
+        var newLocation = getElementX(el) + directionX;
+        setElementX(el, newLocation);
+    }
+
+    function changeBallDirectionX(directionX) {
+        ballDirectionX = directionX;
+    }
+
+    function changeBallDirectionY(directionY) {
+        ballDirectionY = directionY;
+    }
+
+    function isBallHitWall() {
+        var ballLeft = getElementX(ball),
+        ballTop = getElementY(ball);
+        if (ballLeft > arenaWidth) {
+            return 3;
+        } else if (ballLeft < 0) {
+            return 2;
+        } else if (ballTop > arenaHeight) {
+            return 1;
+        } else if (ballTop < 0) {
+            return 0;
+        }
+        return 5;
+    }
+
+    function isBallHitPaddle() {
+        var ballTop = getElementY(ball),
+            ballLeft = getElementX(ball),
+            playerTop = playerY - player.offsetHeight,
+            playerLeft = 
+            parseInt(window.getComputedStyle(player, null).getPropertyValue('left'));
+
+        if (ballTop >= playerTop) {
+            if (ballLeft >= playerLeft &&
+                ballLeft <= (playerLeft + player.offsetWidth ) ) {
+                ball.style.background = 'pink';
+                return 1;
+            } else {
+                ball.style.background = 'blue';
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    function getElementX(el) {
+        return parseInt(window.getComputedStyle(el, null).getPropertyValue('left')) - (el.offsetWidth / 2);
+    }
+
+    function getElementY(el) {
+        return parseInt(window.getComputedStyle(el, null).getPropertyValue('top')) - (el.offsetHeight / 2);
+    }
+
+    function setElementX(el, x) {
+        el.style.left = 'calc(' + x + '% - ' + (el.offsetWidth / 2) + 'px )';
+    }
+
+    function setElementY(el, y) {
+        el.style.top = 'calc(' + y + '% - ' + (el.offsetHeight / 2) + 'px )';
+    }
+
+    function print_arrow_key(keyCodeNumber) {
+        var LEFT = 37,
+            UP = 38,
+            RIGHT = 39,
+            DOWN = 40;
+
+        switch (keyCodeNumber) {
+            case LEFT:
+                // setElementX(player, );
+                // moveElement(player, -1);
+                playerX -= 5;
+                break;
+            case UP:
+                console.log('up');
+                break;
+            case RIGHT:
+                playerX += 5;
+                break;
+            case DOWN:
+                console.log('down');
+                break;
+            default:
+                console.log('Other character (not an arrow key)');
+                break;
+        }
+
+        setElementX(player, playerX);
+    }
+
+    function checkKeycode(event) {
+        var keyDownEvent = event || window.event,
+            keycode = (keyDownEvent.which) ? keyDownEvent.which : keyDownEvent.keyCode;
+        print_arrow_key(keycode);
+        return false;
+    }
+
+    document.onkeydown = checkKeycode;
+
+</script>
+
+</html>

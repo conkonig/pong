@@ -1,0 +1,7 @@
+# Exclude these files from the git repo
+passwords/*
+dong.jpg
+
+# Hidden system files
+
+# Include these files in previously blocked directories

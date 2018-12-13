@@ -17,6 +17,13 @@
         background: red;
         position: relative;
     }
+    #enemy{
+        height: 20px;
+        width: 200px;
+        /* border-radius: 10px; */
+        background: blueviolet;
+        position: relative;
+    }
     #player { 
         height: 20px;
         width: 200px;
@@ -27,7 +34,7 @@
 </style>
 <body>
     <div class="arena">
-        <div id="paddle"></div>
+        <div id="enemy"></div>
         <div id="ball"></div>
         <div id="player"></div>
     </div>
@@ -35,6 +42,10 @@
 <script>
     var ball = document.getElementById('ball');
     var player = document.getElementById('player');
+    var enemy = document.getElementById('enemy');
+
+    var enemyX = 50;
+
     var playerX = 50;
     var playerY = 460;
 
@@ -42,6 +53,8 @@
     var arenaHeight = 500 - 30;
     var ballX = 50, ballY = 50,
     ballSpeed = 25;
+
+    setElementX(enemy, enemyX);
 
     setElementX(player, playerX);
     player.style.top = playerY;

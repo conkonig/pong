@@ -1,16 +1,17 @@
 ﻿<!-- Connor made a change on Thurday Eve -->
 <img class="" src="https://galabrands.cachefly.net/pictures_new/add/V016637N_2.jpg"
  alt="Képtalálat a következőre: „black dong”" style="float: right; width: 40%; height: auto;">
- 
+
 <html>
 <style>
     .arena {
         height: 500px;
         width: 500px;
-        background: white;
-        border: 4px solid black;
+        background-color: lightgrey;
+        padding: 0 10px 20px 0
+        /* border: 4px solid black; */
     }
-    #ball { 
+    #ball {
         height: 20px;
         width: 20px;
         border-radius: 10px;
@@ -24,7 +25,7 @@
         background: blueviolet;
         position: relative;
     }
-    #player { 
+    #player {
         height: 20px;
         width: 200px;
         /* border-radius: 10px; */
@@ -58,7 +59,6 @@
 
     setElementX(player, playerX);
     player.style.top = playerY;
-    // setElementY(player, playerY);
 
     setElementX(ball, ballX);
     setElementY(ball, ballY);
@@ -102,6 +102,8 @@
 
         ballY = ballY + ballDirectionY;
         setElementY(ball, ballY);
+
+        enemyAttackBall();
     }
 
     function moveElement(el, directionX) {
@@ -136,7 +138,7 @@
         var ballTop = getElementY(ball),
             ballLeft = getElementX(ball),
             playerTop = playerY - player.offsetHeight,
-            playerLeft = 
+            playerLeft =
             parseInt(window.getComputedStyle(player, null).getPropertyValue('left'));
 
         if (ballTop >= playerTop) {
@@ -150,6 +152,20 @@
             }
         }
         return 0;
+    }
+
+    function enemyAttackBall(){
+      let ballLeft = getElementX(ball);
+          ballRight = (ballLeft + ball.offsetWidth);
+          enemyLeft = getElementX(enemy);
+          enemyHalf =((enemy.offsetWidth) / 2);
+
+      if (ballLeft <= (enemyLeft + enemyHalf)){
+          enemy.style.left = (ballLeft - enemyHalf);
+      }
+      if (ballLeft >= (enemyLeft + enemyHalf)){
+          enemy.style.left = (ballLeft - enemyHalf);
+      }
     }
 
     function getElementX(el) {

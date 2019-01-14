@@ -1,0 +1,60 @@
+.page{
+    display: grid;
+    grid-template-columns: 500px auto;
+    align-items: center;
+    grid-gap: 10px;
+    font-family: 'Press Start 2P', cursive;
+}
+.score-board{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 48% 48%;
+    grid-gap: 4%;
+}
+#player-score{
+    background-color: lightgray;
+    border: 10px solid green;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    font-size: 80px;
+    padding: 30px;
+}
+#enemy-score{
+    background-color: lightgray;
+    border: 10px solid blueviolet;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    font-size: 80px;
+    padding: 30px;
+}
+.arena {
+    height: 500px;
+    width: 500px;
+    background-color: lightgrey;
+    padding: 0 0 30px 0;
+}
+#ball {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background: red;
+    position: relative;
+}
+#enemy{
+    height: 10px;
+    width: 150px;
+    /* border-radius: 10px; */
+    background: blueviolet;
+    position: relative;
+    border-radius: 2px;
+}
+#player {
+    height: 10px;
+    width: 150px;
+    /* border-radius: 10px; */
+    background: green;
+    position: relative;
+    border-radius: 2px;
+}
